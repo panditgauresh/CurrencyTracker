@@ -15,9 +15,9 @@
 
   <table>
     <tr>
-      <th>Name</th>
-      <th>Code</th>
-      <th>Status</th>
+      <th><%= sortable "name" %></th>
+      <th><%= sortable "code" %></th>
+      <th><%= sortable "status" %></th>
       <th></th>
       <th></th>
     </tr>
@@ -33,3 +33,4 @@
   <% end %>
   </table>
 </section>
+<%= will_paginate @products %>

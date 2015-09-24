@@ -1,8 +1,10 @@
 class CountriesController < ApplicationController
+  before_action :check_login
+  helper_method :sort_column, :sort_direction
   # GET /countries
   # GET /countries.xml
   def index
-    @countries = Country.all
+    @countries = Country.all.paginate(page: params[:page], per_page: 10).order(sort_column + " " + sort_direction)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -56,5 +58,35 @@ class CountriesController < ApplicationController
         format.xml  { render :xml => @country.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def visit_status
+    @country = Country.find(params[:id])
+    visited = nil
+    if @country.visited
+      visited = 'true'
+    else
+      visited = 'false'
+    end
+    render :xml => '<visited type="boolean">'+visited+'</visited>'
+  end
+
+
+  def visited_count
+    render :json => Country.visited.count
+  end
+
+  def not_visited_count
+    render :json => Country.not_visited.count
+  end
+
+  private
+  
+  def sort_column
+    Country.column_names.include?(params[:sort]) ? params[:sort] : "Name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

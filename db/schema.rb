@@ -11,24 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205172800) do
+ActiveRecord::Schema.define(version: 20150923175521) do
 
   create_table "countries", id: false, force: true do |t|
     t.string   "name"
     t.string   "code"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "visited",    default: false
   end
 
   create_table "currencies", id: false, force: true do |t|
     t.string   "name"
     t.string   "code"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "country_id"
     t.decimal  "weight"
     t.decimal  "collector_value"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "email"
+    t.string   "pwd_hash"
+    t.string   "salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

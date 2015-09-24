@@ -1,4 +1,24 @@
 CurrencyTracker::Application.routes.draw do
+  get 'countries/visit_status/:id', to: 'countries#visit_status'
+
+  get 'countries/visited_count'
+
+  get 'countries/not_visited_count'
+
+  get 'currencies/collected_status/:id', to: 'currencies#collected_status'
+
+  get 'currencies/collected_count'
+
+  get 'currencies/not_collected_count'
+
+  get 'sessions/login'
+
+  post 'sessions/check'
+
+  get 'users/new'
+
+  post 'users/create'
+
   root :to => "currencies#index"
   
   resources :countries, :except => [:new, :destroy]
